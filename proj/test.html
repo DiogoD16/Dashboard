@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="/styles.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+
+<body>
+  <script>
+    //impor do file onde os valores dos campos css estão definidos
+    fetch('/config.json')
+    .then(response => {
+    if (!response.ok) {
+      throw new Error('Network response was not ok');
+    }
+    return response.json();
+    })
+    .then(config => {
+      document.documentElement.style.setProperty('--bar-text-color',config.bar_text_color);
+      document.documentElement.style.setProperty('--bar-background-color',config.bar_background_color);
+      document.documentElement.style.setProperty('--bar-font-family',config.bar_font_family);
+      document.documentElement.style.setProperty('--bar-display',config.bar_display);
+      document.documentElement.style.setProperty('--bar-grid-template-columns',config.bar_grid_template_columns);
+      document.documentElement.style.setProperty('--bar-text-align',config.bar_text_align);
+      document.documentElement.style.setProperty('--logo-margin-left',config.logo_margin_left);
+      document.documentElement.style.setProperty('--logo-width',config.logo_width);
+      document.documentElement.style.setProperty('--logo-height',config.logo_height);
+      document.documentElement.style.setProperty('--logo-border-radius',config.logo_border_radius);
+      document.documentElement.style.setProperty('--logo-object-fit',config.logo_object_fit);
+      document.documentElement.style.setProperty('--datatable-font-size', config.datatable_font_size);
+      document.documentElement.style.setProperty('--datatable-font-family', config.datatable_font_family);
+      document.documentElement.style.setProperty('--datatable-font-weight', config.datatable_font_weight);
+      document.documentElement.style.setProperty('--datatable-columns-rows-border', config.datatable_columns_rows_border);
+      document.documentElement.style.setProperty('--success-color', config.success_color);
+      document.documentElement.style.setProperty('--notsuccess-color', config.notsuccess_color);
+      document.documentElement.style.setProperty('--waiting-color',config.waiting_color);
+      document.documentElement.style.setProperty('--datetime-margin-left',config.datetime_margin_left);
+      document.documentElement.style.setProperty('--div-display-datatable-and-pingtest',config.div_display_datatable_and_pingtest);
+      document.documentElement.style.setProperty('--div-datatable-and-pingtest-grid-template-columns',config.div_datatable_and_pingtest_grid_template_columns);
+      document.documentElement.style.setProperty('--border-div-datatable',config.border_div_datatable);
+      document.documentElement.style.setProperty('--border-div-pingtest',config.border_div_pingtest);
+      document.documentElement.style.setProperty('--div-pingtest-font-family',config.div_pingtest_font_family);
+      document.documentElement.style.setProperty('--div-pingtest-text-align',config.div_pingtest_text_align);
+      document.documentElement.style.setProperty('--div-pingtest-height',config.div_pingtest_height);
+      document.documentElement.style.setProperty('--div-pingtest-font-size',config.div_pingtest_font_size);
+      document.documentElement.style.setProperty('--div-pingtest-pings-color',config.div_pingtest_pings_color);
+      document.documentElement.style.setProperty('--div-pingtest-h1-margin',config.div_pingtest_h1_margin);
+      document.documentElement.style.setProperty('--div-pingtest-h1-padding-top',config.div_pingtest_h1_padding_top);
+      document.documentElement.style.setProperty('--div-pingtest-h1-border-bottom',config.div_pingtest_h1_border_bottom);
+      document.documentElement.style.setProperty('--div-pingtest-h1-padding-bottom',config.div_pingtest_h1_padding_bottom);
+      document.documentElement.style.setProperty('--div-pingtest-h1-background-color',config.div_pingtest_h1_background_color);
+      document.documentElement.style.setProperty('--div-pingtest-h1-text-color',config.div_pingtest_h1_text_color);
+      document.documentElement.style.setProperty('--div-pingtest-h2-margin',config.div_pingtest_h2_margin);
+      document.documentElement.style.setProperty('--div-pingtest-h2-padding-top',config.div_pingtest_h2_padding_top);
+      if (config.hide_dataTables_length_filter_paginate_info) {
+        // Esconde alguns campos provenientes do script da datatable que não são necessários
+        document.querySelectorAll('.dataTables_length, .dataTables_filter, .dataTables_paginate, .dataTables_info')
+          .forEach(element => {
+            element.style.display = 'none';
+          });
+      }
+    })
+    .catch(error => {
+    console.error('Fetch error:', error);
+    });
+    
+  </script>
+    <!-- div responsável pela barra azul do topo da página -->
+      <div class="bar">
+        <!-- logo da empresa -->
+        <img src="" class="logo">
+        <h1>Dashboard</h1>
+        <h2 id="datetime" class="time"></h2>
+      </div>
+    <!-- div que contém outras duas divs dentro que são a "left-div" composta pela datatable e a "right-div" composta pelo ping dos IPs -->
+    <div id="myDiv" class="container">
+      <!-- div da datatable -->
+      <div class="left-div">
+        <table id="dataTable" class="display responsive">
+        </table>
+      </div>
+        <!-- scripts usados para a datatable -->
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.min.css">
+        <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
+        
+      <!-- div onde os Ips e o resultados dos pings é mostrado -->
+      <div class="right-div">
+        <h1>Ping Test</h1>
+        <div id="pingResults"></div> 
+      </div>
+      <!-- aqui é o script dos pings é chamado -->
+      <script src="pingscript.js"></script>
+    </div>
+    <script>
+          const myDiv = document.getElementById('myDiv');
+
+          /* esta função é usada para esconder a div com a class container durante 9 segundos, quando se dá load ou refresh à pagina */
+          function showMyDiv() {
+            myDiv.style.visibility = 'visible';
+            console.log('Loaded');
+          }
+
+          myDiv.style.visibility = 'hidden';
+
+          //Mostra uma mensagem enquanto o contador está ativo
+          console.log('Loading...');
+
+          //Coloco um timeout de 9 segundos até a div aparecer
+          setTimeout(showMyDiv, 9000);
+
+    
+    //função responsável por apresentar a data e hora atual, atualizando a cada segundo
+    function updateDateTime() {
+            var currentDate = new Date();
+            var formattedDate = currentDate.toLocaleString(); // Format as per your requirement
+            
+            document.getElementById('datetime').textContent = formattedDate;
+        }
+
+        updateDateTime();
+
+        // Faz update a cada segundo
+        setInterval(updateDateTime, 1000);
+        
+        
+
+    
+    $(document).ready(function() {
+        var dataTable;
+        function loadData() {
+        $.ajax({
+        url: '/table', // Replace with the appropriate server route
+        method: 'GET',
+        success: function(data) {
+          
+          if (dataTable) {
+                    dataTable.clear().rows.add(data).draw();
+                } else {
+                    dataTable = $('#dataTable').DataTable({
+                        data: data,
+                        "order": [[0, "desc"]],
+                        "pageLength":50,
+                        columns: [
+                          {
+                        title: 'CreatedAt',
+                        data: 'CreatedAt',
+                        render: function(data) {
+                        const options = {
+                            year: 'numeric',
+                            month: 'short',
+                            day: 'numeric',
+                            hour: '2-digit',
+                            minute: '2-digit',
+                            second: '2-digit'
+                        };
+                        const formattedDate = new Date(data).toLocaleString('pt-PT', options);
+                        return formattedDate;
+                    }
+                },
+                        { title: 'Action', data: 'Action' },
+                        { title: 'HandlingUnit', data: 'HandlingUnit' },
+                        { title: 'Result', data: 'Result' },
+                        ],
+                    });
+                }
+                
+          dataTable.rows().every(function() {
+          var rowData = this.data();
+          var resultValue = rowData['Result']; 
+
+          if (resultValue.toLowerCase().includes('success')||resultValue.toLowerCase().includes('ok')) {
+            $(this.node()).addClass('success-row');
+          }else if(resultValue.toLowerCase().includes('message')){
+            $(this.node()).addClass('notsuccess-row');
+          }else{
+            $(this.node()).addClass('waiting-row');
+          }
+        });
+        setTimeout(loadData, 5000);
+        },
+        error: function() {
+          console.log('Error fetching data.');
+          setTimeout(loadData, 5000);
+        }
+      });
+        
+    } 
+    loadData();
+    
+});
+
+  </script>
+</body>
+</html>

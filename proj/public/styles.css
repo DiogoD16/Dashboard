@@ -1,0 +1,98 @@
+.bar{
+  background-color: var(--bar-background-color);
+  color: var(--bar-text-color);
+  font-family: var(--bar-font-family);
+  display: var(--bar-display);
+  grid-template-columns: var(--bar-grid-template-columns);
+  text-align: var(--bar-text-align);     
+}
+
+#dataTable{
+  font-family: var(--datatable-font-family);
+  font-weight:var(--datatable-font-weight);
+  font-size: var(--datatable-font-size);
+}
+
+#dataTable td,
+#dataTable th {
+  border: var(--datatable-columns-rows-border);
+}
+
+.success-row {
+    background-color: var(--success-color) !important;
+  }
+  
+  .notsuccess-row{
+    background-color: var(--notsuccess-color) !important;
+  }
+
+  .waiting-row{
+    background-color: var(--waiting-color) !important;
+  }
+
+  .time{
+    
+    margin-left: var(--datetime-margin-left);
+  }
+
+  body{
+    margin: 0;
+    padding: 0;
+  }
+  
+
+  .container {
+    display: var(--div-display-datatable-and-pingtest);
+    grid-template-columns: var(--div-datatable-and-pingtest-grid-template-columns);
+  
+  }
+
+  .left-div {
+    border: var(--border-div-datatable);
+ 
+  }
+
+  .right-div {
+    font-family: var(--div-pingtest-font-family);
+    text-align: var(--div-pingtest-text-align);
+    height:var(--div-pingtest-height);
+    font-size: var(--div-pingtest-font-size);
+    border: var(--border-div-pingtest);
+    color:var(--div-pingtest-pings-color);
+  }
+      
+  .logo{
+    margin-left: var(--logo-margin-left);
+    width: var(--logo-width); 
+    height: var(--logo-height); 
+    border-radius: var(--logo-border-radius); 
+    object-fit: var(--logo-object-fit); 
+    
+  }
+  
+  .dataTables_length, 
+  .dataTables_filter,
+  .dataTables_paginate,
+  .dataTables_info
+  {
+    display: none;
+  }
+
+  .right-div h1{
+    margin: var(--div-pingtest-h1-margin); 
+    padding-top: var(--div-pingtest-h1-padding-top);
+    border-bottom: var(--div-pingtest-h1-border-bottom);
+    padding-bottom: var(--div-pingtest-h1-padding-bottom);
+    background-color: var(--div-pingtest-h1-background-color);
+    color: var(--div-pingtest-h1-text-color);
+
+  }
+
+  .right-div h2 {
+    margin: var(--div-pingtest-h2-margin); 
+    padding-top: var(--div-pingtest-h2-padding-top);
+  }
+
+
+  
+  
