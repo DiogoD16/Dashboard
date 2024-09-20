@@ -1,5 +1,5 @@
 ==========DASHBOARD==========
--O projeto da Dashboard que se encontra dentro da pasta proj contém os seguintes files: index.js, test.html,dbconfig.json e coficab.png. Dentro da pasta public existem outros files como config.json,pingscript.js e styles.css. Adicionei comentários no código  que ajudam a perceber melhor as funcionalidades de cada parte de código.  
+-O projeto da Dashboard que se encontra dentro da pasta proj contém os seguintes files: index.js, test.html,dbconfig.json. Dentro da pasta public existem outros files como config.json,pingscript.js e styles.css. Adicionei comentários no código  que ajudam a perceber melhor as funcionalidades de cada parte de código.  
 
 ==========INDEX.JS==========
 -Vamos começar pelo index.js que é o file principal. Este file é responsável pela ligação ao servidor, base de dados e por importar o ficheiro html.
